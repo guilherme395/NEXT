@@ -2,17 +2,16 @@ version: "3.8"
 
 services:
   nextjs:
-    image: nextjs-app:latest
     build: .
     networks:
       - IcodeNet
     deploy:
       labels:
         - "traefik.enable=true"
-        - "traefik.http.routers.main-icodenew.rule=Host(`main-icodenew.com.br`)"
-        - "traefik.http.routers.main-icodenew.entrypoints=websecure"
-        - "traefik.http.routers.main-icodenew.tls.certresolver=letsencryptresolver"
-        - "traefik.http.services.main-icodenew.loadbalancer.server.port=3000"
+        - "traefik.http.routers.main-front.rule=Host(`main-icodenew.com.br`)"
+        - "traefik.http.routers.main-front.entrypoints=websecure"
+        - "traefik.http.routers.main-front.tls.certresolver=letsencryptresolver"
+        - "traefik.http.services.main-front.loadbalancer.server.port=3000"
       restart_policy:
         condition: any
         delay: 5s
