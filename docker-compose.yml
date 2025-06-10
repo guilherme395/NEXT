@@ -1,0 +1,22 @@
+services:
+  nextjs:
+    image: nextjs-app:latest
+    build: .
+    networks:
+      - IcodeNet
+    deploy:
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.main-icodenew.rule=Host(`main-icodenew.com.br`)"
+        - "traefik.http.routers.main-icodenew.entrypoints=websecure"
+        - "traefik.http.routers.main-icodenew.tls.certresolver=letsencryptresolver"
+        - "traefik.http.services.main-icodenew.loadbalancer.server.port=3000"
+      restart_policy:
+        condition: any
+        delay: 5s
+    environment:
+      - NODE_ENV=production
+
+networks:
+  IcodeNet:
+    external: true
